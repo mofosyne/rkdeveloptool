@@ -77,8 +77,10 @@ char *CRKDevice::GetLayerName() {
 }
 
 string CRKDevice::GetLayerString(DWORD dwLocationID) {
-	char szLocation[32] = "\0";
-	sprintf(szLocation, "%d-%d", dwLocationID >> 8, dwLocationID & 0xff);
+	const int szLocationLen = 32;
+	char szLocation[szLocationLen] = "\0";
+	snprintf(szLocation, szLocationLen, "%d-%d", dwLocationID >> 8,
+			dwLocationID & 0xff);
 	return szLocation;
 }
 
@@ -631,8 +633,8 @@ int CRKDevice::EraseAllBlocks(bool force_block_erase) {
 			iEraseTimes = 0;
 			while (uiBlockCount > 0) {
 				iEraseBlockNum = (uiBlockCount < MAX_ERASE_BLOCKS) ?
-						  uiBlockCount :
-						  MAX_ERASE_BLOCKS;
+						uiBlockCount :
+						MAX_ERASE_BLOCKS;
 				iRet = m_pComm->RKU_EraseBlock(
 						i, iErasePos, iEraseBlockNum, ERASE_FORCE);
 				if ((iRet != ERR_SUCCESS) && (iRet != ERR_FOUND_BAD_BLOCK)) {

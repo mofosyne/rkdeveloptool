@@ -13,9 +13,9 @@
 #include "RKImage.h"
 #include "RKLog.h"
 #include "RKScan.h"
+#include "boot_merger.h"
 #include "config.h"
 #include "gpt.h"
-#include "boot_merger.h"
 
 #define ENTRY_ALIGN (2048)
 options gOpts;
@@ -80,50 +80,53 @@ void usage() {
 void ProgressInfoProc(DWORD deviceLayer, ENUM_PROGRESS_PROMPT promptID,
 		long long totalValue, long long currentValue, ENUM_CALL_STEP emCall) {
 	string strInfoText;
-	char szText[256];
+	const int szTextLen = 256;
+	char szText[szTextLen];
 	switch (promptID) {
 	case TESTDEVICE_PROGRESS:
-		sprintf(szText, "Test Device total %lld, current %lld", totalValue,
-				currentValue);
-		strInfoText = szText;
-		break;
-	case LOWERFORMAT_PROGRESS:
-		sprintf(szText, "Lowerformat Device total %lld, current %lld",
+		snprintf(szText, szTextLen, "Test Device total %lld, current %lld",
 				totalValue, currentValue);
 		strInfoText = szText;
 		break;
+	case LOWERFORMAT_PROGRESS:
+		snprintf(szText, szTextLen,
+				"Lowerformat Device total %lld, current %lld", totalValue,
+				currentValue);
+		strInfoText = szText;
+		break;
 	case DOWNLOADIMAGE_PROGRESS:
-		sprintf(szText, "Download Image total %lldK, current %lldK",
+		snprintf(szText, szTextLen, "Download Image total %lldK, current %lldK",
 				totalValue / 1024, currentValue / 1024);
 		strInfoText = szText;
 		break;
 	case CHECKIMAGE_PROGRESS:
-		sprintf(szText, "Check Image total %lldK, current %lldK",
+		snprintf(szText, szTextLen, "Check Image total %lldK, current %lldK",
 				totalValue / 1024, currentValue / 1024);
 		strInfoText = szText;
 		break;
 	case TAGBADBLOCK_PROGRESS:
-		sprintf(szText, "Tag Bad Block total %lld, current %lld", totalValue,
-				currentValue);
-		strInfoText = szText;
-		break;
-	case TESTBLOCK_PROGRESS:
-		sprintf(szText, "Test Block total %lld, current %lld", totalValue,
-				currentValue);
-		strInfoText = szText;
-		break;
-	case ERASEFLASH_PROGRESS:
-		sprintf(szText, "Erase Flash total %lld, current %lld", totalValue,
-				currentValue);
-		strInfoText = szText;
-		break;
-	case ERASESYSTEM_PROGRESS:
-		sprintf(szText, "Erase System partition total %lld, current %lld",
+		snprintf(szText, szTextLen, "Tag Bad Block total %lld, current %lld",
 				totalValue, currentValue);
 		strInfoText = szText;
 		break;
+	case TESTBLOCK_PROGRESS:
+		snprintf(szText, szTextLen, "Test Block total %lld, current %lld",
+				totalValue, currentValue);
+		strInfoText = szText;
+		break;
+	case ERASEFLASH_PROGRESS:
+		snprintf(szText, szTextLen, "Erase Flash total %lld, current %lld",
+				totalValue, currentValue);
+		strInfoText = szText;
+		break;
+	case ERASESYSTEM_PROGRESS:
+		snprintf(szText, szTextLen,
+				"Erase System partition total %lld, current %lld", totalValue,
+				currentValue);
+		strInfoText = szText;
+		break;
 	case ERASEUSERDATA_PROGRESS:
-		sprintf(szText,
+		snprintf(szText, szTextLen,
 				"<LocationID=%x> Erase Userdata partition total %lld, current "
 				"%lld",
 				deviceLayer, totalValue, currentValue);
@@ -3208,7 +3211,7 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
 						}
 						if (bSuccess) {
 							if ((lba_end - lba + 1) * 512 <
-									(unsigned) get_file_size(argv[3])) {
+									(unsigned)get_file_size(argv[3])) {
 								fprintf(stderr,
 										"The file is larger than the targeted "
 										"partition\n");
@@ -3267,10 +3270,12 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
 					bSuccess = read_lba(dev, (u32)lba,
 							((u32)(lba_end - lba + 1)) * 512, argv[3]);
 				} else {
-					fprintf(stderr, "Could not find the %s partition\n", argv[2]);
+					fprintf(stderr, "Could not find the %s partition\n",
+							argv[2]);
 				}
 			} else {
-				fprintf(stderr, "The device does not have a partition table!\n");
+				fprintf(stderr,
+						"The device does not have a partition table!\n");
 			}
 		}
 	} else if (strcmp(strCmd.c_str(), "RL") == 0 ||
@@ -3278,8 +3283,9 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
 		char *pszEnd;
 		UINT uiBegin, uiLen;
 		if (argc != 5)
-			fprintf(stderr, "Usage: rkdeveloptool read start-sector num-bytes "
-				   "filename\n");
+			fprintf(stderr,
+					"Usage: rkdeveloptool read start-sector num-bytes "
+					"filename\n");
 		else {
 			uiBegin = strtoul(argv[2], &pszEnd, 0);
 			if (*pszEnd)
@@ -3303,8 +3309,9 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
 					fprintf(stderr, "Not found any partition table!\n");
 			}
 		} else
-			fprintf(stderr, "Parameter of [PPT] command is invalid, please check "
-				   "help!\n");
+			fprintf(stderr,
+					"Parameter of [PPT] command is invalid, please check "
+					"help!\n");
 	} else {
 		fprintf(stderr, "command is invalid!\n");
 		usage();
@@ -3315,13 +3322,14 @@ bool handle_command(int argc, char *argv[], CRKScan *pScan) {
 int main(int argc, char *argv[]) {
 	CRKScan *pScan = nullptr;
 	int ret;
-	char szProgramProcPath[100];
+	const int szProgramProcPathLen = 100;
+	char szProgramProcPath[szProgramProcPathLen];
 	char szProgramDir[256];
 	string strLogDir, strConfigFile;
 	struct stat statBuf {};
 
 	g_ConfigItemVec.clear();
-	sprintf(szProgramProcPath, "/proc/%d/exe", getpid());
+	snprintf(szProgramProcPath, szProgramProcPathLen, "/proc/%d/exe", getpid());
 	if (readlink(szProgramProcPath, szProgramDir, 256) == -1)
 		strcpy(szProgramDir, ".");
 	else {
