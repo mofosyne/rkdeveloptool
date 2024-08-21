@@ -1,20 +1,46 @@
 SUBSYSTEM!="usb", GOTO="end_rules"
 
+# RK1106
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="110c", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK1808
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="180a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK2818
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="281a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK2918
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="290a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK2928
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="292a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3026
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="292c", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3066
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="300a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3168
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="300b", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 # RK3036
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="301a", MODE="0666", GROUP="users"
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="301a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3066
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="310a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3188
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="310b", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 # RK3128
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="310c", MODE="0666", GROUP="users"
-# RK3229
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320b", MODE="0666", GROUP="users"
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="310c", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 # RK3288
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320a", MODE="0666", GROUP="users"
-# RK3328
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320c", MODE="0666", GROUP="users"
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3228/RK3229
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320b", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3318/RK3328/PX4
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="320c", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 # RK3368
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330a", MODE="0666", GROUP="users"
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 # RK3399
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330c", MODE="0666", GROUP="users"
-# RK3566
-ATTRS{idVendor}=="2207", ATTRS{idProduct}=="350a", MODE="0666", GROUP="users"
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330c", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3308/RK3326/RK3388/PX30
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330d", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3308
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="330e", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3568
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="350a", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
+# RK3588
+ATTRS{idVendor}=="2207", ATTRS{idProduct}=="350b", MODE="0666", GROUP="users", TEST=="power/autosuspend", ATTR{power/autosuspend}="-1"
 
 LABEL="end_rules"

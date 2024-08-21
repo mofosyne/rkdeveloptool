@@ -1,21 +1,44 @@
 # rkdeveloptool
 
-rkdeveloptool is a fastboot-like CLI tool for flashing rockchip devices. This fork is actively maintained to support the PineNote and Quartz64 as well as other Pine64 RK devices.
+rkdeveloptool is a fastboot-like CLI tool for flashing Rockchip devices. This fork is actively maintained to support various Rockchip devices.
+
+## Supported SoCs
+
+This version of rkdeveloptool supports the following Rockchip SoCs:
+
+- RK1106
+- RK1808
+- RK2818
+- RK2918
+- RK2928
+- RK3026
+- RK3066
+- RK3168
+- RK3036
+- RK3188
+- RK3128
+- RK3288
+- RK3228/RK3229
+- RK3318/RK3328/PX4
+- RK3368
+- RK3399
+- RK3308/RK3326/RK3388/PX30
+- RK3568
+- RK3588
 
 ## Install instructions
 
-### Deps
+This project requires [libusb](https://libusb.info/), but if it's unavailable, `meson` will compile it from the source, so you don't need to install it manually.
 
-* libusb-1.0
-
-### Build and install
+To compile:
 
 ```bash
-meson build
+meson setup build
 meson compile -C build
 ```
 
 To install:
+
 ```bash
 meson install -C build
 ```
@@ -59,4 +82,3 @@ Reads or writes the storage of a rockchip device booted into the rockusb bootloa
 Some of these commands are legacy and probably not useful to us, but they're here anyway :>
 
 Use `rkdeveloptool command -h` for command specific help.
-
