@@ -1,4 +1,4 @@
-project('rkdeveloptool', 'cpp', version: '1.3.2', default_options: ['c_std=c2x', 'cpp_std=c++23'])
+project('rkdeveloptool', 'cpp', version: '1.3.2', default_options: ['c_std=c2x', 'cpp_std=c++20'])
 
 # make sure we have libusb and acquire it if not
 libusb = dependency('libusb-1.0', fallback: ['libusb', 'libusb_dep'])
